@@ -8,7 +8,7 @@ variables:
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
   webAppName: 'RemaSampleApp'
-  appServicePlan: 'CatServicePlan'
+  appServicePlan: 'CatServicePlan (F1: Free)'
 
 steps:
 #Install the Go version

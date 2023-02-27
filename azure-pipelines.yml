@@ -46,7 +46,7 @@ steps:
                 echo "$(Build.ArtifactStagingDirectory)"
 
                 echo "System.DefaultWorkingDirectory:"
-                echo "$(System.DefaultWorkingDirectory)"
+                echo "ls -lrt $(System.DefaultWorkingDirectory)"
       
                 echo "Build.BinariesDirectory:" 
                 echo "$(Build.BinariesDirectory)"

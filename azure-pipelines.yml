@@ -48,17 +48,27 @@ steps:
       
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
-
 - task: AzureWebApp@1
-#Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
-  displayName: 'Deploy to Azure Web App'
   inputs:
-    azureSubscription: $(azureSubscription)
+    azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
-    appName: $(webAppName)
-    package: '$(Build.SourcesDirectory)/bin/remasample'
-    runtimeStack: 'GO|latest'
+    appName: 'RemaSampleApp'
+    deployToSlotOrASE: true
+    resourceGroupName: 'CATDemo'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'GO|1'
     startUpCommand: './remasample'
+# - task: AzureWebApp@1
+# #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
+#   displayName: 'Deploy to Azure Web App'
+#   inputs:
+#     azureSubscription: $(azureSubscription)
+#     appType: 'webAppLinux'
+#     appName: $(webAppName)
+#     package: '$(Build.SourcesDirectory)/bin/remasample'
+#     runtimeStack: 'GO|latest'
+#     startUpCommand: './remasample'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

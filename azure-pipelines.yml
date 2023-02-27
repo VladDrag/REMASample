@@ -52,7 +52,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/bin'
+    PathtoPublish: '$(Build.SourcesDirectory)/bin'
     ArtifactName: 'remasample'
     publishLocation: 'Container'
 
@@ -80,7 +80,7 @@ steps:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: 'RemaSampleApp1'
-    package: '$(Build.ArtifactStagingDirectory)/bin/remasample'
+    package: '$(Build.SourcesDirectory)/bin/remasample'
     runtimeStack: 'GO|1'
     startUpCommand: 'main.go'
 

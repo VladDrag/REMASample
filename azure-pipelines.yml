@@ -56,7 +56,7 @@ steps:
     deployToSlotOrASE: true
     resourceGroupName: 'CATDemo'
     slotName: 'production'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.DefaultWorkingDirectory)/bin/'
     runtimeStack: 'GO|1'
     startUpCommand: './remasample'
 # - task: AzureWebApp@1

@@ -50,47 +50,27 @@ steps:
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/bin'
-    ArtifactName: 'remasample'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.SourcesDirectory)/bin'
+#     ArtifactName: 'remasample'
+#     publishLocation: 'Container'
 
-- task: Bash@3
-  displayName: Folder Structure AFTER creation
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-                echo "Structure of work folder of this pipeline:"
-                tree $(Agent.WorkFolder)/1
-      
-                echo "Build.ArtifactStagingDirectory:" 
-                echo "$(Build.ArtifactStagingDirectory)"
-      
-                echo "Build.BinariesDirectory:" 
-                echo "$(Build.BinariesDirectory)"
-      
-                echo "Build.SourcesDirectory:"
-                echo "$(Build.SourcesDirectory)"
 
-- task: AzureCLI@2
-#Restart the Web App to apply the changes 
-  displayName: 'Restart Web App'
-  inputs:
-    azureSubscription: $(azureSubscription)
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az webapp restart --name $(webAppName) --resource-group $(appServicePlan)'
+# - task: AzureCLI@2
+# #Restart the Web App to apply the changes 
+#   displayName: 'Restart Web App'
+#   inputs:
+#     azureSubscription: $(azureSubscription)
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'az webapp restart --name $(webAppName) --resource-group $(appServicePlan)'
 - task: AzureWebApp@1
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: '$(webAppName)'
     package: '$(Build.SourcesDirectory)/bin/remasample'
-    runtimeStack: 'GO|1'
-    startUpCommand: 'main.go'
 
 - task: Bash@3
   displayName: Folder Structure final

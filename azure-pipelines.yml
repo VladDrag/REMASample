@@ -31,6 +31,24 @@ steps:
     arguments: '-o bin/remasample'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+      
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
+
 - task: AzureWebApp@1
 #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
   displayName: 'Deploy to Azure Web App'
@@ -38,7 +56,7 @@ steps:
     azureSubscription: $(azureSubscription)
     appType: 'webAppLinux'
     appName: $(webAppName)
-    package: '$(System.DefaultWorkingDirectory)/bin/remasample'
+    package: '$(Build.BinariesDirectory)/bin/remasample'
     runtimeStack: 'GO|latest'
     startUpCommand: './remasample'
 

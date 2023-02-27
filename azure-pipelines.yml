@@ -49,11 +49,11 @@ steps:
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
 - task: AzureWebApp@1
   inputs:
@@ -62,7 +62,7 @@ steps:
     appName: 'RemaSampleApp'
     resourceGroupName: 'CATDemo'
     slotName: 'production'
-    package: '$(Build.ArtifactStagingDirectory)/*.zip'
+    package: '$(Build.SourcesDirectory)/bin/remasample'
     runtimeStack: 'GO|1'
     startUpCommand: './remasample'
 

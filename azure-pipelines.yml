@@ -7,7 +7,8 @@ pool:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-  webAppName: 'RemaSampleApp'
+  webAppName: 'RemaSampleApp2'
+  remaService: 'RemaService2'
   appServicePlan: 'CatServicePlan'
 
 steps:
@@ -43,6 +44,9 @@ steps:
       
                 echo "Build.ArtifactStagingDirectory:" 
                 echo "$(Build.ArtifactStagingDirectory)"
+
+                echo "System.DefaultWorkingDirectory:"
+                echo "$(System.DefaultWorkingDirectory)"
       
                 echo "Build.BinariesDirectory:" 
                 echo "$(Build.BinariesDirectory)"
@@ -66,7 +70,7 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript:
-      az appservice plan create --name REMAService --resource-group CATDemo --sku B1
+      az appservice plan create --name $(remaService) --resource-group CATDemo --sku B1
 
 - task: AzureCLI@2
 #Restart the Web App to apply the changes 
@@ -76,14 +80,14 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript:
-      az webapp create --name $(webAppName) --resource-group CATDemo --plan REMAService
+      az webapp create --name $(webAppName) --resource-group CATDemo --plan $(remaService)
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: '$(webAppName)'
-    package: '$(Build.SourcesDirectory)/bin/remasample'
+    package: '$(System.DefaultWorkingDirectory)/bin/remasample'
 
 - task: Bash@3
   displayName: Folder Structure final

@@ -54,6 +54,7 @@ steps:
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
                 tree "$(Build.SourcesDirectory)"
+                ls -lrt /home/vsts/work/1/s/bin/remasample
 
 # - task: PublishBuildArtifacts@1
 #   inputs:

@@ -7,7 +7,7 @@ pool:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-  webAppName: 'RemaSampleApp1'
+  webAppName: 'RemaSampleApp'
   appServicePlan: 'CatServicePlan'
 
 steps:
@@ -75,11 +75,19 @@ steps:
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
 
+- task: AzureCLI@2
+#Restart the Web App to apply the changes 
+  displayName: 'Restart Web App'
+  inputs:
+    azureSubscription: $(azureSubscription)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az webapp restart --name $(webAppName) --resource-group $(appServicePlan)'
 - task: AzureWebApp@1
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
-    appName: 'RemaSampleApp1'
+    appName: '$(webAppName)'
     package: '$(Build.SourcesDirectory)/bin/remasample'
     runtimeStack: 'GO|1'
     startUpCommand: 'main.go'

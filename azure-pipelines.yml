@@ -31,16 +31,16 @@ steps:
     arguments: '-o bin/remasample'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# - task: AzureWebApp@1
-# #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
-#   displayName: 'Deploy to Azure Web App'
-#   inputs:
-#     azureSubscription: $(azureSubscription)
-#     appType: 'webAppLinux'
-#     appName: $(webAppName)
-#     package: 'REMASample/bin/remasample'
-#     runtimeStack: 'GO|latest'
-#     startUpCommand: './remasample'
+- task: AzureWebApp@1
+#Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
+  displayName: 'Deploy to Azure Web App'
+  inputs:
+    azureSubscription: $(azureSubscription)
+    appType: 'webAppLinux'
+    appName: $(webAppName)
+    package: '$(System.DefaultWorkingDirectory)/bin/remasample'
+    runtimeStack: 'GO|latest'
+    startUpCommand: './remasample'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

@@ -7,7 +7,7 @@ pool:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-  webAppName: 'RemaSampleApp'
+  webAppName: 'RemaSampleApp1'
   appServicePlan: 'CatServicePlan'
 
 steps:
@@ -50,20 +50,58 @@ steps:
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'drop'
-#     publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/bin'
+    ArtifactName: 'remasample'
+    publishLocation: 'Container'
+
+- task: Bash@3
+  displayName: Folder Structure AFTER creation
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+      
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
-    appName: 'RemaSampleApp'
-    package: '$(Build.SourcesDirectory)/bin/remasample'
+    appName: 'RemaSampleApp1'
+    package: '$(Build.ArtifactStagingDirectory)/bin/remasample'
     runtimeStack: 'GO|1'
     startUpCommand: 'main.go'
+
+- task: Bash@3
+  displayName: Folder Structure final
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+      
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
 
 
 

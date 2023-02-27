@@ -62,7 +62,7 @@ steps:
     appName: 'RemaSampleApp'
     resourceGroupName: 'CATDemo'
     slotName: 'production'
-    package: '$(Build.SourcesDirectory)/bin/remasample'
+    package: '$(Build.SourcesDirectory)/bin/'
     runtimeStack: 'GO|1'
     startUpCommand: './remasample'
 

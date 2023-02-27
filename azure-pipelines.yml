@@ -48,6 +48,13 @@ steps:
       
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
@@ -55,9 +62,12 @@ steps:
     appName: 'RemaSampleApp'
     resourceGroupName: 'CATDemo'
     slotName: 'production'
-    package: '$(System.DefaultWorkingDirectory)/bin/'
+    package: '$(Build.ArtifactStagingDirectory)/*.zip'
     runtimeStack: 'GO|1'
     startUpCommand: './remasample'
+
+
+
 # - task: AzureWebApp@1
 # #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
 #   displayName: 'Deploy to Azure Web App'

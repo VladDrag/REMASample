@@ -53,7 +53,6 @@ steps:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: 'RemaSampleApp'
-    deployToSlotOrASE: true
     resourceGroupName: 'CATDemo'
     slotName: 'production'
     package: '$(System.DefaultWorkingDirectory)/bin/'

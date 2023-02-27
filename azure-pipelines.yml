@@ -61,11 +61,9 @@ steps:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: 'RemaSampleApp'
-    resourceGroupName: 'CATDemo'
-    slotName: 'production'
     package: '$(Build.SourcesDirectory)/bin/'
     runtimeStack: 'GO|1'
-    startUpCommand: './remasample'
+    startUpCommand: 'main.go'
 
 
 

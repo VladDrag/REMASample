@@ -60,13 +60,22 @@ steps:
 
 - task: AzureCLI@2
 #Restart the Web App to apply the changes 
-  displayName: 'Restart Web App'
+  displayName: 'Create Service'
   inputs:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript:
       az appservice plan create --name REMAService1 --resource-group CATDemo --sku B1
+
+- task: AzureCLI@2
+#Restart the Web App to apply the changes 
+  displayName: 'Create Web App'
+  inputs:
+    azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript:
       az webapp create --name REMASampleApp1 --resource-group CATDemo --plan REMAService1
 
 - task: AzureWebApp@1

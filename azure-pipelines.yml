@@ -15,8 +15,8 @@ steps:
 - task: GoTool@0
   displayName: 'Install Go'
   inputs:
-    version: 1.17.x
-    workingDirectory: 'REMASample'
+    version: '1.17.x'
+    goBin: '/opt/hostedtoolcache/go/1.17.13/x64/bin/'
 
 - task: Go@0
 #Build the Golang application in the REMASample directory

@@ -59,13 +59,19 @@ steps:
                 tree "$(Build.SourcesDirectory)"
                 ls -lrt /home/vsts/work/1/s/bin/remasample
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.SourcesDirectory)/bin'
-#     ArtifactName: 'remasample'
-#     publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/bin'
+    ArtifactName: 'remasample'
+    publishLocation: 'Container'
 
 
 
@@ -89,12 +95,12 @@ steps:
 #     inlineScript:
 #       az webapp create --name $(webAppName) --resource-group CATDemo --plan $(remaService)
 
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-    appType: 'webAppLinux'
-    appName: '$(webAppName)'
-    startUpCommand: 'go'
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
+#     appType: 'webAppLinux'
+#     appName: '$(webAppName)'
+#     startUpCommand: 'go'
 
 - task: Bash@3
   displayName: Folder Structure final

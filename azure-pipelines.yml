@@ -36,7 +36,7 @@ steps:
   displayName: Folder Structure
   inputs:
     targetType: 'inline'
-    script:
+    script: |
       # Write your commands here
       
                 echo "Structure of work folder of this pipeline:"
@@ -59,13 +59,13 @@ steps:
                 tree "$(Build.SourcesDirectory)"
                 echo "ls -lrt /home/vsts/work/1/s/bin/remasample"
 
-# - task: ArchiveFiles@2
-#   inputs:
-#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-#     includeRootFolder: true
-#     archiveType: 'zip'
-#     archiveFile: '$(Build.ArtifactStagingDirectory)/remasample.zip'
-#     replaceExistingArchive: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/remasample.zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:

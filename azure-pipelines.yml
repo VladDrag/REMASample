@@ -130,7 +130,7 @@ steps:
   displayName: 'Deploy to Azure Web App'
   inputs:
     azureSubscription: $(azureSubscription)
-    appType: 'webAppLinux'
+    appType: 'webApp'
     appName: $(webAppName)
     package: '$(Build.SourcesDirectory)/bin/'
     runtimeStack: 'GO|latest'

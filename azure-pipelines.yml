@@ -50,11 +50,16 @@ steps:
       
                 echo "Build.BinariesDirectory:" 
                 echo "$(Build.BinariesDirectory)"
+
+                echo "Build.Repository.LocalPath:"
+                echo "$(Build.Repository.LocalPath)"
       
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
                 tree "$(Build.SourcesDirectory)"
                 ls -lrt /home/vsts/work/1/s/bin/remasample
+
+
 
 # - task: PublishBuildArtifacts@1
 #   inputs:
@@ -89,7 +94,7 @@ steps:
     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
     appType: 'webAppLinux'
     appName: '$(webAppName)'
-    package: '/home/vsts/work/1/s/bin/remasample'
+    startUpCommand: 'go'
 
 - task: Bash@3
   displayName: Folder Structure final

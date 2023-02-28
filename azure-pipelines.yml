@@ -134,7 +134,7 @@ steps:
     appName: $(webAppName)
     package: '$(Build.SourcesDirectory)/bin/remasample'
     runtimeStack: 'GO|latest'
-    startUpCommand: './remasample'
+    startUpCommand: 'go run remasample'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

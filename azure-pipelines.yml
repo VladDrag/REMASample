@@ -36,7 +36,7 @@ steps:
   displayName: Folder Structure
   inputs:
     targetType: 'inline'
-    script: |
+    script:
       # Write your commands here
       
                 echo "Structure of work folder of this pipeline:"
@@ -59,13 +59,13 @@ steps:
                 tree "$(Build.SourcesDirectory)"
                 ls -lrt /home/vsts/work/1/s/bin/remasample
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+# - task: ArchiveFiles@2
+#   inputs:
+#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+#     includeRootFolder: true
+#     archiveType: 'zip'
+#     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -123,16 +123,16 @@ steps:
 
 
 
-# - task: AzureWebApp@1
-# #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
-#   displayName: 'Deploy to Azure Web App'
-#   inputs:
-#     azureSubscription: $(azureSubscription)
-#     appType: 'webAppLinux'
-#     appName: $(webAppName)
-#     package: '$(Build.SourcesDirectory)/bin/remasample'
-#     runtimeStack: 'GO|latest'
-#     startUpCommand: './remasample'
+- task: AzureWebApp@1
+#Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
+  displayName: 'Deploy to Azure Web App'
+  inputs:
+    azureSubscription: $(azureSubscription)
+    appType: 'webAppLinux'
+    appName: $(webAppName)
+    package: '$(Build.SourcesDirectory)/bin/remasample'
+    runtimeStack: 'GO|latest'
+    startUpCommand: './remasample'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

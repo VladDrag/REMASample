@@ -64,12 +64,12 @@ steps:
 #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
 #     includeRootFolder: true
 #     archiveType: 'zip'
-#     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     archiveFile: '$(Build.ArtifactStagingDirectory)/remasample.zip'
 #     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/bin/'
+    PathtoPublish: '$(Build.SourcesDirectory)/bin/remasample.zip'
     ArtifactName: 'remasample'
     publishLocation: 'Container'
 
@@ -129,12 +129,11 @@ steps:
 #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
   displayName: 'Deploy to Azure Web App'
   inputs:
-    azureSubscription: $(azureSubscription)
+    azureSubscription: '$(azureSubscription)'
     appType: 'webApp'
-    appName: $(webAppName)
+    appName: '$(webAppName)'
     package: '$(Build.SourcesDirectory)/bin/'
-    runtimeStack: 'GO|latest'
-    startUpCommand: 'go run remasample'
+    deploymentMethod: 'runFromPackage'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

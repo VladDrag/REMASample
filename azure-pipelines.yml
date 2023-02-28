@@ -132,7 +132,7 @@ steps:
     azureSubscription: $(azureSubscription)
     appType: 'webAppLinux'
     appName: $(webAppName)
-    package: '$(Build.SourcesDirectory)/bin/remasample'
+    package: '$(Build.SourcesDirectory)/bin/'
     runtimeStack: 'GO|latest'
     startUpCommand: 'go run remasample'
 

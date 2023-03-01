@@ -132,7 +132,7 @@ steps:
     azureSubscription: '$(azureSubscription)'
     appType: 'webApp'
     appName: '$(webAppName)'
-    package: '$(Build.ArtifactStagingDirectory)/bin/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/*.zip'
     deploymentMethod: 'runFromPackage'
 
 # - task: AzureCLI@2

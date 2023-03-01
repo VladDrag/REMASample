@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-    http.Handle("/s/", http.FileServer(http.Dir("./")))
+    http.Handle("/", http.FileServer(http.Dir("./")))
     http.ListenAndServe(":8080", nil)
 }
 

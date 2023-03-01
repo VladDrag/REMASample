@@ -133,7 +133,7 @@ steps:
     appType: 'webApp'
     appName: '$(webAppName)'
     package: '$(Build.ArtifactStagingDirectory)/*.zip'
-    deploymentMethod: 'runFromPackage'
+    deploymentMethod: 'auto'
 
 # - task: AzureCLI@2
 # #Restart the Web App to apply the changes 

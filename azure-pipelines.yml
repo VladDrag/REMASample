@@ -56,8 +56,6 @@ steps:
       
                 echo "Build.SourcesDirectory:"
                 echo "$(Build.SourcesDirectory)"
-                tree "$(Build.SourcesDirectory)"
-                echo "ls -lrt /home/vsts/work/1/s/bin/remasample"
 
 - task: ArchiveFiles@2
   inputs:
@@ -73,6 +71,30 @@ steps:
 #     ArtifactName: 'remasample'
 #     publishLocation: 'Container'
 
+- task: Bash@3
+  displayName: Folder Structure After Archiving
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+      
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+
+                echo "System.DefaultWorkingDirectory:"
+                echo "$(System.DefaultWorkingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+
+                echo "Build.Repository.LocalPath:"
+                echo "$(Build.Repository.LocalPath)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
 
 - task: AzureWebApp@1
 #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.

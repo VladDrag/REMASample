@@ -46,7 +46,7 @@ steps:
                 echo "$(Build.ArtifactStagingDirectory)"
 
                 echo "System.DefaultWorkingDirectory:"
-                echo "ls -lrt $(System.DefaultWorkingDirectory)"
+                echo "$(System.DefaultWorkingDirectory)"
       
                 echo "Build.BinariesDirectory:" 
                 echo "$(Build.BinariesDirectory)"
@@ -67,11 +67,11 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/remasample.zip'
     replaceExistingArchive: true
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/'
-    ArtifactName: 'remasample'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)/'
+#     ArtifactName: 'remasample'
+#     publishLocation: 'Container'
 
 
 

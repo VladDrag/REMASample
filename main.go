@@ -1,17 +1,3 @@
-// package main
-
-// import (
-// 	"net/http"
-// )
-
-
-// func main() {
-// 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-// 		http.ServeFile(w, r, "./index.html")
-// 	})
-// 	http.ListenAndServe(":8080", nil)
-// }
-
 package main
 
 import (
@@ -21,7 +7,7 @@ import (
 
 func main() {
 
-    http.Handle("/", http.FileServer(http.Dir("./")))
+    http.Handle("/s", http.FileServer(http.Dir("./")))
     http.ListenAndServe(":8080", nil)
 }
 

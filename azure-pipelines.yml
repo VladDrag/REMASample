@@ -74,57 +74,6 @@ steps:
 #     publishLocation: 'Container'
 
 
-
-# - task: AzureCLI@2
-# #Restart the Web App to apply the changes 
-#   displayName: 'Create Service'
-#   inputs:
-#     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript:
-#       az appservice plan create --name $(remaService) --resource-group CATDemo --sku B1
-
-# - task: AzureCLI@2
-# #Restart the Web App to apply the changes 
-#   displayName: 'Create Web App'
-#   inputs:
-#     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript:
-#       az webapp create --name $(webAppName) --resource-group CATDemo --plan $(remaService)
-
-# - task: AzureWebApp@1
-#   inputs:
-#     azureSubscription: '4eeaf9bc-2832-49c6-8fa2-dcedcd990e08'
-#     appType: 'webAppLinux'
-#     appName: '$(webAppName)'
-#     startUpCommand: 'go'
-
-- task: Bash@3
-  displayName: Folder Structure final
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-                echo "Structure of work folder of this pipeline:"
-                tree $(Agent.WorkFolder)/1
-      
-                echo "Build.ArtifactStagingDirectory:" 
-                echo "$(Build.ArtifactStagingDirectory)"
-      
-                echo "Build.BinariesDirectory:" 
-                echo "$(Build.BinariesDirectory)"
-      
-                echo "Build.SourcesDirectory:"
-                echo "$(Build.SourcesDirectory)"
-                tree "$(Build.SourcesDirectory)"
-                echo "ls -lrt /home/vsts/work/1/s/bin/remasample"
-
-
-
 - task: AzureWebApp@1
 #Deploy the built binary to the Azure Web App specified by the webAppName variable, using the AzureWebApp task.
   displayName: 'Deploy to Azure Web App'
@@ -134,12 +83,3 @@ steps:
     appName: '$(webAppName)'
     package: '$(Build.ArtifactStagingDirectory)/*.zip'
     deploymentMethod: 'auto'
-
-# - task: AzureCLI@2
-# #Restart the Web App to apply the changes 
-#   displayName: 'Restart Web App'
-#   inputs:
-#     azureSubscription: $(azureSubscription)
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: 'az webapp restart --name $(webAppName) --resource-group $(appServicePlan)'

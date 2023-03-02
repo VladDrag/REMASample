@@ -13,44 +13,50 @@ import (
 // 	Name string
 // 	Email string
 //   }
-
-func main() {
-	// fmt.Println(os.Getenv("TERM"));
-	postgreSQLConnString := os.Getenv("POSTGRESQLCONNSTR_PostGre");
-	db, err := sql.Open("postgres", postgreSQLConnString)
-
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	if err = db.Ping(); err != nil {
-		panic(err)
-	}
-	// this will be printed in the terminal, confirming the connection to the database
-	fmt.Println("The database is connected")
-
-	rows, err := db.Query("SELECT * FROM \"People\".persons;")
-	if err != nil {
-		fmt.Println("Error getting persons")
-		panic(err)
-	}
-
-	defer rows.Close()
-
-	for rows.Next() {
-		var (
+type myHandler struct {
+}
+func (h myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+		// fmt.Println(os.Getenv("TERM"));
+		postgreSQLConnString := os.Getenv("POSTGRESQLCONNSTR_PostGre");
+		db, err := sql.Open("postgres", postgreSQLConnString)
+	
+		if err != nil {
+			panic(err)
+		}
+		defer db.Close()
+	
+		if err = db.Ping(); err != nil {
+			panic(err)
+		}
+		// this will be printed in the terminal, confirming the connection to the database
+		fmt.Println("The database is connected")
+	
+		rows, err := db.Query("SELECT * FROM \"People\".persons;")
+		if err != nil {
+			fmt.Println("Error getting persons")
+			panic(err)
+		}
+	
+		defer rows.Close()
+		var  (
 			id    (int)
 			name  (string)
 			email (string)
-		)	
-		if err := rows.Scan(&id, &name, &email); err != nil {
-			panic(err)
+		)
+		for rows.Next() {
+			if err := rows.Scan(&id, &name, &email); err != nil {
+				panic(err)
+			}
+			fmt.Println("The name is " + name)
 		}
-		fmt.Println("The name is " + name)
-	}
+		w.Write([]byte("Name is " + name + " " + "email is " + email))
+}
+
+func main() {
 
 	http.Handle("/", http.FileServer(http.Dir("")))
+	http.Handle("/person", myHandler{})
+
 	http.ListenAndServe(":8080", nil)
 }
 

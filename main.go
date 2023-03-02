@@ -15,7 +15,7 @@ import (
 
 func main() {
 
-	postgreSQLConnString := "postgres://catAdmin:passKT99,@postktsrvr.postgres.database.azure.com/postgres?sslmode=require"
+	
 	db, err := sql.Open("postgres", postgreSQLConnString)
 
 	if err != nil {

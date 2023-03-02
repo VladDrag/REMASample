@@ -13,22 +13,23 @@ import (
 // 	Name string
 // 	Email string
 //   }
+
 type myHandler struct {
 }
+
 func (h myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-		// fmt.Println(os.Getenv("TERM"));
+
 		postgreSQLConnString := os.Getenv("POSTGRESQLCONNSTR_PostGre");
 		db, err := sql.Open("postgres", postgreSQLConnString)
-	
+
 		if err != nil {
 			panic(err)
 		}
 		defer db.Close()
-	
+
 		if err = db.Ping(); err != nil {
 			panic(err)
 		}
-		// this will be printed in the terminal, confirming the connection to the database
 		fmt.Println("The database is connected")
 	
 		rows, err := db.Query("SELECT * FROM \"People\".persons;")
@@ -47,7 +48,6 @@ func (h myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if err := rows.Scan(&id, &name, &email); err != nil {
 				panic(err)
 			}
-			fmt.Println("The name is " + name)
 		}
 		w.Write([]byte("Name is " + name + " " + "email is " + email))
 }
@@ -58,8 +58,4 @@ func main() {
 	http.Handle("/person", myHandler{})
 
 	http.ListenAndServe(":8080", nil)
-}
-
-func HelloServer(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 }

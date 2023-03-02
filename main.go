@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -14,8 +15,8 @@ import (
 //   }
 
 func main() {
-
-	
+	// fmt.Println(os.Getenv("TERM"));
+	postgreSQLConnString := os.Getenv("POSTGRESQLCONNSTR_PostGre");
 	db, err := sql.Open("postgres", postgreSQLConnString)
 
 	if err != nil {

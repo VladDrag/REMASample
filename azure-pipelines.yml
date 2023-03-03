@@ -16,7 +16,7 @@ steps:
 - task: GoTool@0
   displayName: 'Install Go'
   inputs:
-    version: '1.17.x'
+    version: 'latest'
 
 - task: Go@0
   inputs:
